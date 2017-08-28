@@ -49,5 +49,6 @@ Y_test = (np.arange(10) == Y_test[:,None]).astype(int)
 # show_accuracy就是显示每次迭代后的正确率
 # validation_split就是拿出百分之多少用来做交叉验证
 model.fit(X_train, Y_train, batch_size=200, nb_epoch=20,shuffle=True, verbose=1, validation_split=0.3)
+
 print('test set')
 model.evaluate(X_test, Y_test, batch_size=200,verbose=1)

@@ -61,10 +61,10 @@ def CNN(trainDir, validationDir, classNum):
             class_mode='categorical')
     model.fit_generator(
             train_generator,
-            samples_per_epoch=nb_train_samples,
-            nb_epoch=nb_epoch,
+            steps_per_epoch=nb_train_samples,
+            epochs=nb_epoch,
             validation_data=validation_generator,
-            nb_val_samples=nb_validation_samples)
+            validation_steps=nb_validation_samples)
     return model
 
 

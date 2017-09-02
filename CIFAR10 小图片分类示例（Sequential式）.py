@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
+
 batch_size = 32
 num_classes = 10
 epochs = 200
@@ -20,7 +21,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 # 网络结构配置
 model = Sequential()
 model.add(Conv2D(32, (3, 3), padding='same',
-                 input_shape=x_train.shape[1:]))
+                 input_shape=(150, 150, 3)))
 model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))

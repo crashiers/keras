@@ -64,3 +64,4 @@ model.fit_generator(
         validation_data=validation_generator,
         nb_val_samples=800)
 model.save_weights('first_try.h5')  # always save your weights after training or during training
+

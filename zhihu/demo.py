@@ -32,3 +32,8 @@ for i in range(10):
     with open('img/zhihu_img{}.jpg'.format(i), 'wb') as f:
         f.write(requests.get(captchaUrl, headers=headers).content)
 
+        
+
+
+
+

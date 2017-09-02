@@ -74,6 +74,7 @@ if __name__ == '__main__':
     validation_data_dir = 'train/1'
     cropModel = CNN(train_data_dir, validation_data_dir, 2)
     cropModel.save_weights('cropWeights.h5')
+
     # cropModel.save('cropModel.h5')
     # classModel = CNN(train_class, validation_class, 25)
     # classModel.save_weights('classWeights.h5')

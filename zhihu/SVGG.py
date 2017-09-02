@@ -1,6 +1,6 @@
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential,load_model
-from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 import numpy as np
 import os
@@ -8,15 +8,15 @@ import os
 
 def CNN(trainDir, validationDir, classNum):
     model = Sequential()
-    model.add(Convolution2D(4, 3, 3, input_shape=(img_width, img_height, 1)))
+    model.add(Conv2D(4, (3, 3), input_shape=(img_width, img_height, 1)))
     model.add(Activation('relu'))
-    model.add(Convolution2D(4, 3, 3))
+    model.add(Conv2D(4, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     # layer
-    model.add(Convolution2D(8, 3, 3))
+    model.add(Conv2D(8, (3, 3)))
     model.add(Activation('relu'))
-    model.add(Convolution2D(8, 3, 3))
+    model.add(Conv2D(8, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     # model.add(Convolution2D(16, 3, 3))
@@ -67,14 +67,21 @@ def CNN(trainDir, validationDir, classNum):
             nb_val_samples=nb_validation_samples)
     return model
 
+
 if __name__ == '__main__':
     img_width = 30
     img_height = 60
+    nb_train_samples = 100
+    nb_validation_samples = 10
+    nb_epoch = 3000
     train_data_dir = 'train/0'
     validation_data_dir = 'train/1'
+    train_class = ''
+    validation_class = ''
     cropModel = CNN(train_data_dir, validation_data_dir, 2)
-    cropModel.save_weights('cropWeights.h5')
-    # cropModel.save('cropModel.h5')
-    # classModel = CNN(train_class, validation_class, 25)
+    # cropModel.save_weights('cropWeights.h5')
+    cropModel.save('cropModel.h5')
+    classModel = CNN(train_class, validation_class, 25)
     # classModel.save_weights('classWeights.h5')
-    # classModel.save('classModel.h5')
+    classModel.save('classModel.h5')
+    

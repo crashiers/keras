@@ -25,8 +25,15 @@ data = {
 timeStamp = int(time.time()*1000)
 captchaUrl = url + '/captcha.gif?=' + str(timeStamp)
 print(captchaUrl)
-file = BytesIO(requests.get(captchaUrl, headers=headers).content)
-img = Image.open(file)
-img.show()
+# file = BytesIO(requests.get(captchaUrl, headers=headers).content)
+# img = Image.open(file)
+# img.show()
+for i in range(10):
+    with open('img/zhihu_img{}.jpg'.format(i), 'wb') as f:
+        f.write(requests.get(captchaUrl, headers=headers).content)
+
+        
+
+
 
 

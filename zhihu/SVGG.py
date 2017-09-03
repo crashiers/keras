@@ -36,6 +36,19 @@ def CNN(trainDir, validationDir, classNum):
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
+
+    # 二分类
+    # model.compile(loss='binary_crossentropy',
+    #              optimizer='rmsprop',
+    #              metrics=['accuracy'])
+
+    # 多分类
+    # model.compile(loss='categorical_crossentropy',  # matt，多分类，不是binary_crossentropy
+    #               optimizer='rmsprop',
+    #               metrics=['accuracy'])
+    # 优化器rmsprop：除学习率可调整外，建议保持优化器的其他默认参数不变
+
+
     # this is the augmentation configuration we will use for training
     train_datagen = ImageDataGenerator(
             rescale=1./255,
@@ -73,15 +86,15 @@ if __name__ == '__main__':
     img_height = 60
     nb_train_samples = 100
     nb_validation_samples = 10
-    nb_epoch = 3000
-    train_data_dir = 'train/0'
-    validation_data_dir = 'train/1'
-    train_class = ''
-    validation_class = ''
+    nb_epoch = 30
+    train_data_dir = 'train'
+    validation_data_dir = 'train'
+    train_class = 'train'
+    validation_class = 'train'
     cropModel = CNN(train_data_dir, validation_data_dir, 2)
-    # cropModel.save_weights('cropWeights.h5')
-    cropModel.save('cropModel.h5')
+    cropModel.save_weights('crop-Weights.h5')
+    cropModel.save('crop-Model.h5')
     classModel = CNN(train_class, validation_class, 25)
-    # classModel.save_weights('classWeights.h5')
+    classModel.save_weights('classWeights.h5')
     classModel.save('classModel.h5')
     

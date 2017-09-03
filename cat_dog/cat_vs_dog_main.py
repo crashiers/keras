@@ -24,7 +24,7 @@ model.add(Dense(64))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1))
-model.add(Activation('sigmoid'))
+model.add(Activation('sigmoid'))    # 二分类就是dense(2)+sigmoid 多分类使用Dense(num) + softmax
 
 model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
@@ -56,11 +56,14 @@ validation_generator = test_datagen.flow_from_directory(
     target_size=(150, 150),
     batch_size=32,
     class_mode='binary')
-
 model.fit_generator(
         train_generator,
         steps_per_epoch=2000,
         epochs=50,
         validation_data=validation_generator,
         validation_steps=800)
+
+# samples_per_epoch，相当于每个epoch数据量峰值，每个epoch以经过模型的样本数达到samples_per_epoch时，记一个epoch结束
+
+model.save('cat-model.h5')
 model.save_weights('first_try.h5')  # always save your weights after training or during training

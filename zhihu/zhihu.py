@@ -12,15 +12,19 @@ import shutil
 import re
 
 # dimensions of our images.
-img_width, img_height = 60, 30
+img_width, img_height = 30, 60
 
-crop_weights = './cropWeights.h5'
-class_weights = './classWeights.h5'
-crop_model = './cropModel.h5'
-class_model = './classModel.h5'
+crop_weights = 'crop-Weights.h5'
+class_weights = 'class-Weights.h5'
+crop_model = 'crop-Model.h5'
+class_model = 'class-Model.h5'
+# nb_train_samples = 100
+# nb_validation_samples = 10
+# nb_epoch = 3000
+
 nb_train_samples = 100
 nb_validation_samples = 10
-nb_epoch = 3000
+nb_epoch = 30
 
 myUrl = 'https://www.zhihu.com/people/mo-xie-gu-shi/activities'
 url = 'https://www.zhihu.com'
@@ -44,31 +48,14 @@ mapArray = np.array(mapList)
 
 
 
-def login():
-    global s 
-    s = requests.session()
-    homeReq = s.get(url, headers=headers)
-    homeSoup = BeautifulSoup(homeReq.text, 'lxml')
-    xsrf = homeSoup.find('input',{'name':'_xsrf','type':'hidden'})['value']
-    data['_xsrf'] = xsrf
-    timeStamp = int(time.time()*1000)    
-    captchaUrl = url + '/captcha.gif?=' + str(timeStamp)
-    f = open('captcha.gif','wb')
-    f.write(s.get(captchaUrl, headers=headers).content)
-    f.close()
-    im = Image.open('captcha.gif')
-    im.save('captcha.png')
-    im = Image.open('captcha.png')
+def start():
+    im = Image.open('zhihu_img0.jpg')
     crop(im)
-    data['captcha'] = predict(cropModel,classModel)
-    # data['captcha'] = 'MDB5'
-    loginReq = s.post(loginUrl, data=data,headers=headers)
-    print('loginReq:{}'.format(loginReq.status_code))
-    myReq = s.get(myUrl, headers=headers)
-    print('myReq:{}'.format(myReq))
-    return myReq
+    captcha = predict(cropModel,classModel)
+    return captcha
 
 def crop(im):
+    # 图片裁剪   crop((x0,y0,x1,y1))
     step = 1
     boxList = []
     for i in range(121):
@@ -177,10 +164,10 @@ def checkAndReplace(index,target,distance):
 if __name__ == '__main__':
     cropModel = load_model(crop_model)
     classModel = load_model(class_model)
-    state = login()
-    while(state.status_code != 200):
-        time.sleep(0.2)
-        state = login()
+    state = start()
+    # while(state.status_code != 200):
+    #     time.sleep(0.2)
+    #     state = login()
     # print('homePage:')
     # print(state.text)
 

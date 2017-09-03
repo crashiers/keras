@@ -67,3 +67,4 @@ model.fit_generator(
 
 model.save('cat-model.h5')
 model.save_weights('first_try.h5')  # always save your weights after training or during training
+

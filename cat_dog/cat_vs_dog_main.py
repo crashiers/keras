@@ -4,6 +4,7 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
 
 
+
 model = Sequential()
 model.add(Conv2D(32, (3, 3), input_shape=(150, 150,3)))
 model.add(Activation('relu'))
@@ -59,9 +60,11 @@ validation_generator = test_datagen.flow_from_directory(
 
 model.fit_generator(
         train_generator,
-        steps_per_epoch=2000,
-        epochs=50,
+        steps_per_epoch=20,
+        epochs=1,
         validation_data=validation_generator,
         validation_steps=800)
-model.save_weights('first_try.h5')  # always save your weights after training or during training
+json_string = model.to_json()
+model.save('cat_dog_model2.h5')
+model.save_weights('cat_dog_weights2.h5')  # always save your weights after training or during training
 

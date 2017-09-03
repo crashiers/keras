@@ -60,11 +60,12 @@ validation_generator = test_datagen.flow_from_directory(
 
 model.fit_generator(
         train_generator,
-        steps_per_epoch=20,
-        epochs=1,
+        steps_per_epoch=200,
+        epochs=10,
         validation_data=validation_generator,
         validation_steps=800)
 json_string = model.to_json()
-model.save('cat_dog_model2.h5')
-model.save_weights('cat_dog_weights2.h5')  # always save your weights after training or during training
+model.save('cat_dog_model.h5')
+model.save_weights('cat_dog_weights.h5')  # always save your weights after training or during training
 
+# loss是训练集损失值. acc是训练集准确率。val_loss是测试集上的损失值,val_acc是测试集上的准确率。

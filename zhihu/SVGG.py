@@ -8,6 +8,7 @@ import os
 
 def CNN(trainDir, validationDir, classNum):
     model = Sequential()
+
     model.add(Conv2D(4, (3, 3), input_shape=(img_width, img_height, 1)))
     model.add(Activation('relu'))
     model.add(Conv2D(4, (3, 3)))

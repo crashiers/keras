@@ -6,6 +6,7 @@ from keras.preprocessing.image import ImageDataGenerator
 
 
 model = Sequential()
+
 model.add(Conv2D(32, (3, 3), input_shape=(150, 150,3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -17,6 +18,7 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Conv2D(64,(3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
+
 
 # the model so far outputs 3D feature maps (height, width, features)
 
@@ -39,7 +41,6 @@ train_datagen = ImageDataGenerator(
     horizontal_flip=True)
 
 # this is the augmentation configuration we will use for testing:
-# only rescaling
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
 # this is a generator that will read pictures found in
@@ -60,12 +61,12 @@ validation_generator = test_datagen.flow_from_directory(
 
 model.fit_generator(
         train_generator,
-        steps_per_epoch=200,
-        epochs=10,
+        steps_per_epoch=2000,
+        epochs=30,
         validation_data=validation_generator,
-        validation_steps=800)
+        validation_steps=400)
 json_string = model.to_json()
-model.save('cat_dog_model.h5')
-model.save_weights('cat_dog_weights.h5')  # always save your weights after training or during training
+model.save('cat_dog_model_30*2000.h5')
+model.save_weights('cat_dog_weights_30*2000.h5')  # always save your weights after training or during training
 
 # loss是训练集损失值. acc是训练集准确率。val_loss是测试集上的损失值,val_acc是测试集上的准确率。

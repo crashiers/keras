@@ -1,7 +1,6 @@
 from PIL import Image
-from PIL import Image,ImageEnhance
-import pytesseract
-
+from PIL import ImageEnhance
+import os
 
 
 
@@ -24,17 +23,18 @@ def depoint(img):   #input: gray image
     return img
 
 
-img = Image.open('vucx-0.jpg').convert("L")
-# img.show()
-# depoint(img).save('vucx-1.jpg')
-sharpness =ImageEnhance.Contrast(img) #对比度增强
-new_img = sharpness.enhance(2)  # 清晰度增加
-new_img.show()
+def chage_img(img_path):
+    img = Image.open(img_path).convert("L")
+    # img.show()
+    # depoint(img).save('tzwy-1.jpg')
+    sharpness = ImageEnhance.Contrast(img)  # 对比度增强
+    new_img = sharpness.enhance(2)  # 清晰度增加
+    # new_img.save('tzwy-2.jpg')
+    # new_img.show()
 
-# depoint(new_img).save('vucx-3.jpg')
-# code = pytesseract.image_to_string(new_img)
-# print(code)
-
+    depoint(new_img).save('baihe_img/new_{}'.format(img_path))
+    # code = pytesseract.image_to_string(new_img)
+    # print(code)
 
 
 def binarizing(img,threshold): #input: gray image
@@ -51,3 +51,8 @@ def binarizing(img,threshold): #input: gray image
 # print(img.size) # (68, 23)
 # img.thumbnail((34,12)) # 缩略图
 # img.show()
+
+
+if __name__ == '__main__':
+    img_path = input('input imgage path: ')
+    chage_img(img_path)

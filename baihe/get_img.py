@@ -22,7 +22,9 @@ def get_img(i):
 
 
 if __name__ == '__main__':
-    i = 0
+    i = 385
     while True:
         i += 1
         get_img(i)
+        if i == 500:
+            break
